@@ -40,6 +40,6 @@ try:
 
 except KeyboardInterrupt:
     DeactivateADC()
-    print("\nProgram terminated")
+    print("\nProgram is terminated")
 
     
