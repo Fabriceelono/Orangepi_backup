@@ -1,6 +1,7 @@
 import wiringpi
-
 import time
+import json
+import requests
 
 def ActivateADC ():
 
@@ -47,6 +48,8 @@ LED_B_pin = 1 # set the pin for LED B
 wiringpi.pinMode(LED_A_pin, 1) # set LED A pin to OUTPUT mode
 
 wiringpi.pinMode(LED_B_pin, 1) # set LED B pin to OUTPUT mode
+url="http://iotessentialsr0912443.hub.ubeac.io/iotessfabrice"
+uid="iotessfabrice"
 
 #Main
 
@@ -68,11 +71,20 @@ try:
 
         DeactivateADC()
 
+        data= {
+        "id":uid ,
+        "sensors":[{
+            'id': 'adc ch0',
+            'data': tmp0
+             },
+             {'id': 'adc ch1',
+             'data': tmp1
+            }]
+        }
+     
+        r = requests.post(url, verify=False, json=data)
+        print(tmp0, tmp1)
 
-
-        print ("input0:",tmp0)
-
-        print ("input1:",tmp1)
 
 
 
