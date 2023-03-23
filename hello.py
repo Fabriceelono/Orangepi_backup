@@ -1,0 +1,1 @@
+print("Hello everyone I am new with IoT essentials this is an interesting course")
