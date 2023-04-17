@@ -1,7 +1,7 @@
 import time
 import wiringpi
 import spidev
-from ch7_ClassLCD import LCD
+from class_lcd import LCD
 
 def ActivateLCD():
     wiringpi.digitalWrite(pin_CS_lcd, 0)       # Actived LCD using CS
