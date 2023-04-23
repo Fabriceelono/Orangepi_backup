@@ -33,7 +33,7 @@ try:
         print ("input0:",tmp0)
 
         ActivateADC()
-        tmp1 = readadc(1) # read channel 0
+        tmp1 = readadc(1) # read channel 1
         DeactivateADC()
         print ("input1:",tmp1)
         time.sleep(0.2)
