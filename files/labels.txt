@@ -1,0 +1,3 @@
+0 Ok
+1 Not Ok
+2 BG

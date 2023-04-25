@@ -1,0 +1,2 @@
+#!/bin/bash
+python3 label_image.py   --model_file /home/orangepi/Orangepi_backup/files/model.tflite   --label_file /home/orangepi/Orangepi_backup/files/labels.txt   --image /home/orangepi/Orangepi_backup/files/thumbs.bmp
