@@ -1,54 +1,44 @@
-import wiringpi as wp
+import wiringpi
 import time
 
 # Define the number of steps per revolution
-SPR = 2038
+STEPS_PER_REVOLUTION = 2038
 
-# Define the sequence of steps for the stepper motor
-SEQ_CW = [[0,0,0,1],[0,0,1,1],[0,0,1,0],[0,1,1,0],[0,1,0,0],[1,1,0,0],[1,0,0,0],[1,0,0,1]]
+# Define the GPIO pins for the stepper motor
+PIN1 = 0  # BCM GPIO 17 Physical 11
+PIN2 = 1  # BCM GPIO 18 ,12
+PIN3 = 2  # BCM GPIO 27, 13
+PIN4 = 3  # BCM GPIO 22,15
 
-# Set the pins for the ULN2003 driver board
-IN1 = 8
-IN2 = 10
-IN3 = 12
-IN4 = 16
+# Define the step sequence for the stepper motor
+SEQUENCE = [[1, 0, 0, 1],
+            [1, 0, 0, 0],
+            [1, 1, 0, 0],
+            [0, 1, 0, 0]]
 
-# Initialize the WiringPi library
-wp.wiringPiSetup()
+# Set up the GPIO pins
+wiringpi.wiringPiSetup()
+wiringpi.pinMode(PIN1, wiringpi.OUTPUT)
+wiringpi.pinMode(PIN2, wiringpi.OUTPUT)
+wiringpi.pinMode(PIN3, wiringpi.OUTPUT)
+wiringpi.pinMode(PIN4, wiringpi.OUTPUT)
 
-# Set the pins for the ULN2003 driver board
-wp.pinMode(IN1, wp.GPIO.OUTPUT)
-wp.pinMode(IN2, wp.GPIO.OUTPUT)
-wp.pinMode(IN3, wp.GPIO.OUTPUT)
-wp.pinMode(IN4, wp.GPIO.OUTPUT)
-
-# Set the speed of the motor (in RPM)
-rpm = 15
-delay = 0.01
-
-# Step the motor a specified number of steps in the clockwise direction
-def step_cw(steps):
+# Function to rotate the stepper motor a specified number of steps
+def rotate(steps, direction, speed):
+    delay_time = 0.01
+    #60.0 / (STEPS_PER_REVOLUTION * speed)
     for i in range(steps):
-        for j in range(8):
-            wp.digitalWrite(IN1, SEQ_CW[j][0])
-            wp.digitalWrite(IN2, SEQ_CW[j][1])
-            wp.digitalWrite(IN3, SEQ_CW[j][2])
-            wp.digitalWrite(IN4, SEQ_CW[j][3])
-            time.sleep(delay)
+        for j in range(4):
+            wiringpi.digitalWrite(PIN1, SEQUENCE[j][0])
+            wiringpi.digitalWrite(PIN2, SEQUENCE[j][1])
+            wiringpi.digitalWrite(PIN3, SEQUENCE[j][2])
+            wiringpi.digitalWrite(PIN4, SEQUENCE[j][3])
+            time.sleep(delay_time)
+    if direction == 'CCW':
+        SEQUENCE.reverse()
 
-# Step the motor a specified number of steps in a given direction
-def step(steps, direction):
-    if direction == 'cw':
-        step_cw(steps)
-    else:
-        print('Invalid direction')
-
-# Step the motor in the clockwise direction
-step(SPR, 'cw')
-
-# Cleanup the GPIO pins used by the stepper motor
-wp.pinMode(IN1, wp.GPIO.INPUT)
-wp.pinMode(IN2, wp.GPIO.INPUT)
-wp.pinMode(IN3, wp.GPIO.INPUT)
-wp.pinMode(IN4, wp.GPIO.INPUT)
-
+# Rotate the stepper motor
+rotate(2038, 'CW', 5) # Rotate 1 revolution clockwise at 5 RPM
+time.sleep(1) # Wait for 1 second
+rotate(2038, 'CCW', 10) # Rotate 1 revolution counterclockwise at 10 RPM
+time.sleep(1) # Wait for 1 second
