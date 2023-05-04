@@ -7,7 +7,7 @@ def blink(_pin):
     time.sleep(0.1)
     wiringpi.digitalWrite(_pin, 0)    # Write 1 ( HIGH ) to pin
     time.sleep(0.1)
-
+wiringpi.wiringPiSetup() 
 # Define the GPIO pins connected to the ULN2003 inputs
 IN1 = 3
 IN2 = 11
@@ -16,7 +16,7 @@ IN4 = 15
 
 # Set the GPIO pins as outputs
 print("Start")
-wiringpi.wiringPiSetup() 
+
 wiringpi.pinMode(IN1, 1) 
 wiringpi.pinMode(IN2, 1) 
 wiringpi.pinMode(IN3, 1)
