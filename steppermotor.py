@@ -7,10 +7,10 @@ STEPS_PER_REVOLUTION = 2038
 # Define the GPIO pins for the stepper motor
 # These are BCM pin numbers, which correspond to physical pin numbers on the Raspberry Pi
 # For example, BCM pin 17 corresponds to physical pin 11 on the Pi's GPIO header
-PIN1 = 17
-PIN2 = 18
-PIN3 = 27
-PIN4 = 22
+PIN1 = 0
+PIN2 = 1
+PIN3 = 2
+PIN4 = 3
 
 # Define the step sequence for the stepper motor
 # This is the sequence of signals that need to be sent to the motor's coils to make it rotate one step
