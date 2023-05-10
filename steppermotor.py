@@ -51,6 +51,6 @@ def rotate(steps, direction, speed):
             time.sleep(delay_time)
 # Rotate the stepper motor
 rotate(STEPS_PER_REVOLUTION, 'CW', 5) # Rotate one full revolution clockwise at 5 RPM
-time.sleep(1) # Wait for 1 second
+time.sleep(0.01) # Wait for 1 second
 rotate(STEPS_PER_REVOLUTION, 'CCW', 10) # Rotate one full revolution counterclockwise at 10 RPM
-time.sleep(1) # Wait for 1 second
+time.sleep(0.01) # Wait for 1 second
