@@ -13,15 +13,15 @@ def DeactivateLCD():
 
 PIN_OUT     =   {  
                 'SCLK'  :   14,
-                'DIN'   :   5,
+                'DIN'   :   11,
                 'DC'    :   8, 
-                'CS'    :   15, #We will not connect this pin! --> we use w13
+                'CS'    :   13, 
                 'RST'   :   10,
-                'LED'   :   7, #backlight   
+                'LED'   :   16, #backlight   
 }
 
 #IN THIS CODE WE USE W13 (PIN 22) AS CHIP SELECT
-pin_CS_lcd = 15
+pin_CS_lcd = 13
 wiringpi.wiringPiSetup() 
 wiringpi.wiringPiSPISetupMode(1, 0, 400000, 0)  #(channel, port, speed, mode)
 wiringpi.pinMode(pin_CS_lcd , 1)            # Set pin to mode 1 ( OUTPUT )

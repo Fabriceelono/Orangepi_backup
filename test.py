@@ -24,7 +24,7 @@ wiringpi.pinMode(PIN3, 1)
 wiringpi.pinMode(PIN4, 1)
 print("Start")
 pinLed = 2
-pinSwitch = 11
+pinSwitch = 5
 #connected to wiriingpin 11
 wiringpi.wiringPiSetup() 
 wiringpi.pinMode(pinLed, 1)            # Set pin to mode 1 ( OUTPUT )
