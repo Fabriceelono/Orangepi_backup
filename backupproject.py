@@ -3,8 +3,7 @@ import time
 
 
 # Define the number of steps per revolution of the stepper motor
-STEPS_PER_REVOLUTION =500
-# 2038
+STEPS_PER_REVOLUTION = 2038
 PIN1 = 3
 PIN2 = 4
 PIN3 = 6
@@ -27,12 +26,6 @@ wiringpi.pinMode(PIN1, 1)
 wiringpi.pinMode(PIN2, 1)
 wiringpi.pinMode(PIN3, 1)
 wiringpi.pinMode(PIN4, 1)
-#buttons
-pinLed = 2
-pinSwitch = 11
-wiringpi.wiringPiSetup() 
-wiringpi.pinMode(pinLed, 1)            # Set pin to mode 1 ( OUTPUT )
-wiringpi.pinMode(pinSwitch, 0)         # Set pin to mode 0 ( INPUT )
 # Function to rotate the stepper motor a specified number of steps
 def rotate(steps, direction, speed):
 
@@ -74,7 +67,7 @@ wiringpi.pinMode(trigger_pin, wiringpi.OUTPUT)
 wiringpi.pinMode(echo_pin, wiringpi.INPUT)
 
 
-#trap_triggered=0;
+
 while True:
  # Send a trigger signal
  wiringpi.digitalWrite(trigger_pin, wiringpi.HIGH)
@@ -91,16 +84,9 @@ while True:
  # Calculate distance
  time_passed = signal_low - signal_high
  distance = time_passed * 17000
- if(wiringpi.digitalRead(pinSwitch) == 0): #input is active low
-        print("Button Pressed")
-        time.sleep(0.3) #anti bouncing
-        wiringpi.digitalWrite(pinLed, 1)    # Write 1 ( HIGH ) to LED
-        rotate(STEPS_PER_REVOLUTION, 'CCW', 10) # Rotate one full revolution counterclockwise at 10 RPM
-        time.sleep(0.01) # Wait for 1 second
  if distance<10:
     rotate(STEPS_PER_REVOLUTION, 'CW', 5) # Rotate one full revolution clockwise at 5 RPM
     time.sleep(0.01) # Wait for 1 second
- # Print distance
+ # Print distance and wait for 0.5 seconds
  print("Distance:", distance, "cm")
  time.sleep(0.5)
- 
