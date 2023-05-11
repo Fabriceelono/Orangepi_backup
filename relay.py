@@ -1,4 +1,3 @@
-#in1 -->12
 import time
 import wiringpi
 
