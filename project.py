@@ -30,7 +30,7 @@ wiringpi.pinMode(PIN3, 1)
 wiringpi.pinMode(PIN4, 1)
 #buttons
 pinLed = 2
-pinSwitch = 11
+pinSwitch = 5
 wiringpi.wiringPiSetup() 
 wiringpi.pinMode(pinLed, 1)            # Set pin to mode 1 ( OUTPUT )
 wiringpi.pinMode(pinSwitch, 0)         # Set pin to mode 0 ( INPUT )
