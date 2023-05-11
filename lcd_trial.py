@@ -16,6 +16,7 @@ PIN_OUT     =   {
                 'DIN'   :   11,
                 'DC'    :   8, 
                 'CS'    :   13, 
+                
                 'RST'   :   10,
                 'LED'   :   16, #backlight   
 }
@@ -28,26 +29,26 @@ wiringpi.pinMode(pin_CS_lcd , 1)            # Set pin to mode 1 ( OUTPUT )
 ActivateLCD()
 lcd_1 = LCD(PIN_OUT)
 
-i=90
+def get_time():
+    # Get the current time in HH:MM:SS format
+    t = time.localtime()
+    return f"{t.tm_hour:02}:{t.tm_min:02}:{t.tm_sec:02}"
+
 try:
     lcd_1.clear()
     lcd_1.set_backlight(1)
     while True:
-        print ("input 0:",i)
         ActivateLCD()
         lcd_1.clear()
         lcd_1.go_to_xy(0, 0)
-        lcd_1.put_string("ADC Value \nOn display")
-        lcd_1.put_string('\nLCD_Sample:' + str(i))
+        lcd_1.put_string("Current Time: ")
+        lcd_1.put_string("\n"+str(get_time()))
         lcd_1.refresh()
         DeactivateLCD()
         time.sleep(1)
-        i = i+1
 except KeyboardInterrupt:
     lcd_1.clear()
     lcd_1.refresh()
     lcd_1.set_backlight(0)
     DeactivateLCD()
     print("\nProgram terminated")
-
-
