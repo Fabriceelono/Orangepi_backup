@@ -2,6 +2,7 @@ import wiringpi
 import time
 
 
+
 # Define the number of steps per revolution of the stepper motor
 STEPS_PER_REVOLUTION =500
 # 2038
@@ -61,6 +62,24 @@ def rotate(steps, direction, speed):
             wiringpi.digitalWrite(PIN4, step[3])
 
             time.sleep(delay_time)
+#function for relay
+def toggle_relay(relay_pin):
+    # Set up GPIO pin numbering mode
+    wiringpi.wiringPiSetup()
+
+    # Set up the GPIO pin connected to the relay as an output
+    wiringpi.pinMode(relay_pin, 1)
+
+    # Turn the relay on and off 5 times with a 1-second delay between each change
+    for i in range(5):
+        wiringpi.digitalWrite(relay_pin, wiringpi.HIGH)
+        time.sleep(1)
+        wiringpi.digitalWrite(relay_pin, wiringpi.LOW)
+        time.sleep(1)
+
+    # Clean up GPIO settings
+    wiringpi.digitalWrite(relay_pin, wiringpi.LOW)
+    wiringpi.pinMode(relay_pin, wiringpi.INPUT)
 
 
 
@@ -98,8 +117,10 @@ while True:
         rotate(STEPS_PER_REVOLUTION, 'CCW', 10) # Rotate one full revolution counterclockwise at 10 RPM
         time.sleep(0.01) # Wait for 1 second
  if distance<10:
+    toggle_relay(12) # Replace with the actual pin number you're using
     rotate(STEPS_PER_REVOLUTION, 'CW', 5) # Rotate one full revolution clockwise at 5 RPM
     time.sleep(0.01) # Wait for 1 second
+    
  # Print distance
  print("Distance:", distance, "cm")
  time.sleep(0.5)
